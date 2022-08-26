@@ -18,3 +18,48 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.country-list {
+  padding: 0;
+  margin: 0;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+}
+
+.country-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.country-flag {
+  display: block;
+  width: 20px;
+  margin-right: 10px;
+}
+.country-cardFlag {
+  display: block;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.country-name {
+  margin: 0;
+  font-weight: 600;
+}
+
+.country-title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 32px;
+}
+
+.country-paramName {
+  font-weight: 700;
+}
+
+.country-paramValue {
+  margin-left: 5px;
+  font-weight: 600;
+}
