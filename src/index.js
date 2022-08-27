@@ -2,7 +2,7 @@ import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
 
 const refs = {
     DEBOUNCE_DELAY: 300,
@@ -19,33 +19,23 @@ inputEl.addEventListener('input', debounce(findCountries, DEBOUNCE_DELAY));
 function findCountries() {
     const searchValue = inputEl.value.trim();
     if (searchValue.length > 1) {
+        Notify.success('Searching...');
         fetchCountries(searchValue).then(data => {
-        Loading.standard('Loading...');
-        setTimeout(() => {
         if (data.length > 1 && data.length < 10) {
             countryInfo.innerHTML = '';
             countryList.innerHTML = renderListMarkup(data);
-            Loading.remove();
         } else {
             if (data.length === 1) {
                 countryList.innerHTML = '';
                 countryInfo.innerHTML = renderCardMarkup(data);
-                Loading.remove();
             } else if (data.status) {
-                Loading.remove(1000);
-                setTimeout(() => {
-                    Notify.failure('Oops, there is no country with that name');
-                },1200)
+                Notify.failure('Oops, there is no country with that name');
             } else {
-                Loading.remove(1000);
-                setTimeout(() => {
-                    Notify.info('Too many matches found. Please enter a more specific name.');
-                },1200)
+                Notify.info('Too many matches found. Please enter a more specific name.');
                 countryInfo.innerHTML = '';
                 countryList.innerHTML = '';
             }
         }
-        },500)
     }).catch(error => {
         console.log(error);
     });
